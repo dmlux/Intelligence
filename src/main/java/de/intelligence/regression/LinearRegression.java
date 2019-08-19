@@ -4,32 +4,31 @@ import de.intelligence.data.Example;
 import de.intelligence.data.FullDataSet;
 import de.intelligence.math.Vector;
 
-@SuppressWarnings({"WeakerAccess"})
 public class LinearRegression implements Regression<Double> {
 
     @Override
     public RegressionModel<Double> generateModel(FullDataSet<Double> dataSet) {
-        return this.generateModel(dataSet, 0.001, 15000);
+        return this.generateModel(dataSet, 1e-3, 15000);
     }
 
-    public RegressionModel<Double> generateModel(FullDataSet<Double> dataSet, double alpha, int epochs) {
+    public RegressionModel<Double> generateModel(FullDataSet<Double> trainingDataSet, double alpha, int epochs) {
         // extract information
-        int N = dataSet.size();
-        int D = dataSet.featureDimension();
+        int N = trainingDataSet.size();
+        int D = trainingDataSet.featureDimension();
         // create initial data
         Vector w = new Vector(D);
         double b = 0;
         // train the model ad optimize w and b parameters
         for (int e = 0; e < epochs; e++) {
             // -- Gradient Descent for optimizing the w and b parameter
-            // init data for this epoche
+            // init data for this epoch
             Vector dl_dw = new Vector(D);
             double dl_db = 0;
             // compute error for each training data example
-            for (Example<Double> examples : dataSet) {
+            for (Example<Double> examples : trainingDataSet) {
                 Vector xi = examples.getFeatureVector();
                 double yi = examples.getLabel().getValue();
-
+                // calculate with partial derivatives
                 dl_dw.addInPlace(xi.scale(-2 * (yi - (w.multiply(xi) + b))));
                 dl_db += -2 * (yi - (w.multiply(xi) + b));
             }
@@ -39,7 +38,7 @@ public class LinearRegression implements Regression<Double> {
 
             System.out.println("updated parameters with w=" + w + " and b=" + String.format("%f.4", b));
 //            if (e % 400 == 0)
-//                System.out.println("epoche: " + e + ", loss: " + avgLoss(dataSet));
+//                System.out.println("epoch: " + e + ", loss: " + avgLoss(dataSet));
         }
         return new LinearRegressionModel(w, b);
     }

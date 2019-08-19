@@ -34,6 +34,6 @@ public class Main {
     }
 
     private static double f(int x) {
-        return 5.42353 * x + -2.34223;
+        return 5.42353 * x -2.34223;
     }
 }

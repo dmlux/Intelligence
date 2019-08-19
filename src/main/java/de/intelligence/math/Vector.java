@@ -10,6 +10,10 @@ public class Vector {
         memory = values;
     }
 
+    public Vector(int size) {
+        memory = new double[size];
+    }
+
     public Vector scale(double factor) {
         Vector result = new Vector(memory.clone());
         for (int i = 0; i < result.memory.length; i++)
@@ -69,7 +73,11 @@ public class Vector {
     public double get(int index) {
         if (index > memory.length)
             throw new IndexOutOfBoundsException();
-        return memory[index - 1];
+        return memory[index];
+    }
+
+    public void set(int index, double value) {
+        memory[index] = value;
     }
 
     public int size() {

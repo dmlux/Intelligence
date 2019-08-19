@@ -28,6 +28,11 @@ public class SparseDataSet<T> implements DataSet<T> {
     }
 
     @Override
+    public int featureDimension() {
+        return featureVectorDimension;
+    }
+
+    @Override
     public Iterator<Example<T>> iterator() {
         return examples.iterator();
     }

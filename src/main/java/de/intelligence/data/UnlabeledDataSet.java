@@ -29,6 +29,11 @@ public class UnlabeledDataSet implements DataSet<Void> {
     }
 
     @Override
+    public int featureDimension() {
+        return featureVectorDimension;
+    }
+
+    @Override
     public Iterator<Example<Void>> iterator() {
         return examples.iterator();
     }

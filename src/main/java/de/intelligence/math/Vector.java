@@ -44,6 +44,23 @@ public class Vector {
         return this;
     }
 
+    public Vector sub(Vector rhs) {
+        if (rhs.memory.length != memory.length)
+            throw new IllegalArgumentException("Dimensions for vector addition do not match");
+        Vector result = new Vector(memory.clone());
+        for (int i = 0; i < result.memory.length; i++)
+            result.memory[i] -= rhs.memory[i];
+        return result;
+    }
+
+    public Vector subInPlace(Vector rhs) {
+        if (rhs.memory.length != memory.length)
+            throw new IllegalArgumentException("Dimensions for vector in-place addition do not match");
+        for (int i = 0; i < memory.length; i++)
+            memory[i] -= rhs.memory[i];
+        return this;
+    }
+
     public double multiply(Vector rhs) {
         if (rhs.memory.length != memory.length)
             throw new IllegalArgumentException("Dimensions for vector multiplication do not match");
@@ -82,5 +99,19 @@ public class Vector {
 
     public int size() {
         return memory.length;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("(");
+        for (int i = 0; i < memory.length; i++) {
+            if (i < memory.length - 1) {
+                stringBuilder.append(memory[i] + ", ");
+            } else {
+                stringBuilder.append(memory[i] + ")");
+            }
+        }
+        return stringBuilder.toString();
     }
 }

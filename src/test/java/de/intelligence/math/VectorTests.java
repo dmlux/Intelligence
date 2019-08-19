@@ -13,7 +13,7 @@ class VectorTests {
 
     @BeforeEach
     void setUp() {
-        vector = new Vector(1, 2, 3, 4);
+        vector = Vector.of(1, 2, 3, 4);
     }
 
     @Test
@@ -53,9 +53,9 @@ class VectorTests {
 
     @Test
     void testAdd() {
-        assertThrows(IllegalArgumentException.class, () -> vector.add(new Vector(1, 2, 3)));
-        assertThrows(IllegalArgumentException.class, () -> vector.add(new Vector(1, 2, 3, 4, 5)));
-        Vector result = vector.add(new Vector(2, 4, 6, 8));
+        assertThrows(IllegalArgumentException.class, () -> vector.add(Vector.of(1, 2, 3)));
+        assertThrows(IllegalArgumentException.class, () -> vector.add(Vector.of(1, 2, 3, 4, 5)));
+        Vector result = vector.add(Vector.of(2, 4, 6, 8));
         assertEquals(1, vector.get(0));
         assertEquals(2, vector.get(1));
         assertEquals(3, vector.get(2));
@@ -68,9 +68,9 @@ class VectorTests {
 
     @Test
     void testAddInPlace() {
-        assertThrows(IllegalArgumentException.class, () -> vector.addInPlace(new Vector(1, 2, 3)));
-        assertThrows(IllegalArgumentException.class, () -> vector.addInPlace(new Vector(1, 2, 3, 4, 5)));
-        vector.addInPlace(new Vector(2, 4, 6, 8));
+        assertThrows(IllegalArgumentException.class, () -> vector.addInPlace(Vector.of(1, 2, 3)));
+        assertThrows(IllegalArgumentException.class, () -> vector.addInPlace(Vector.of(1, 2, 3, 4, 5)));
+        vector.addInPlace(Vector.of(2, 4, 6, 8));
         assertEquals(3, vector.get(0));
         assertEquals(6, vector.get(1));
         assertEquals(9, vector.get(2));
@@ -79,17 +79,17 @@ class VectorTests {
 
     @Test
     void testMultiply() {
-        assertThrows(IllegalArgumentException.class, () -> vector.multiply(new Vector(1, 2, 3)));
-        assertThrows(IllegalArgumentException.class, () -> vector.multiply(new Vector(1, 2, 3, 4, 5)));
-        double result = vector.multiply(new Vector(2, 4, 6, 8));
+        assertThrows(IllegalArgumentException.class, () -> vector.multiply(Vector.of(1, 2, 3)));
+        assertThrows(IllegalArgumentException.class, () -> vector.multiply(Vector.of(1, 2, 3, 4, 5)));
+        double result = vector.multiply(Vector.of(2, 4, 6, 8));
         assertEquals(60, result);
     }
 
     @Test
     void testPointwiseMultiply() {
-        assertThrows(IllegalArgumentException.class, () -> vector.multiply(new Vector(1, 2, 3)));
-        assertThrows(IllegalArgumentException.class, () -> vector.multiply(new Vector(1, 2, 3, 4, 5)));
-        Vector result = vector.pointwiseMultiply(new Vector(2, 4, 6, 8));
+        assertThrows(IllegalArgumentException.class, () -> vector.multiply(Vector.of(1, 2, 3)));
+        assertThrows(IllegalArgumentException.class, () -> vector.multiply(Vector.of(1, 2, 3, 4, 5)));
+        Vector result = vector.pointwiseMultiply(Vector.of(2, 4, 6, 8));
         assertEquals(1, vector.get(0));
         assertEquals(2, vector.get(1));
         assertEquals(3, vector.get(2));
@@ -102,9 +102,9 @@ class VectorTests {
 
     @Test
     void testPointwiseMultiplyInPlace() {
-        assertThrows(IllegalArgumentException.class, () -> vector.multiply(new Vector(1, 2, 3)));
-        assertThrows(IllegalArgumentException.class, () -> vector.multiply(new Vector(1, 2, 3, 4, 5)));
-        vector.pointwiseMultiplyInPlace(new Vector(2, 4, 6, 8));
+        assertThrows(IllegalArgumentException.class, () -> vector.multiply(Vector.of(1, 2, 3)));
+        assertThrows(IllegalArgumentException.class, () -> vector.multiply(Vector.of(1, 2, 3, 4, 5)));
+        vector.pointwiseMultiplyInPlace(Vector.of(2, 4, 6, 8));
         assertEquals(2, vector.get(0));
         assertEquals(8, vector.get(1));
         assertEquals(18, vector.get(2));

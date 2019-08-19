@@ -1,13 +1,15 @@
 package de.intelligence.math;
 
-import org.graalvm.compiler.hotspot.stubs.OutOfBoundsExceptionStub;
-
 public class Vector {
 
     private double[] memory;
 
-    public Vector(double... values) {
-        memory = values;
+    public static Vector of(double... values) {
+        Vector result = new Vector(values.length);
+        for (int i = 0; i < values.length; i++) {
+            result.set(i, values[i]);
+        }
+        return result;
     }
 
     public Vector(int size) {
@@ -15,7 +17,8 @@ public class Vector {
     }
 
     public Vector scale(double factor) {
-        Vector result = new Vector(memory.clone());
+        Vector result = new Vector(memory.length);
+        result.memory = memory.clone();
         for (int i = 0; i < result.memory.length; i++)
             result.memory[i] *= factor;
         return result;
@@ -30,7 +33,8 @@ public class Vector {
     public Vector add(Vector rhs) {
         if (rhs.memory.length != memory.length)
             throw new IllegalArgumentException("Dimensions for vector addition do not match");
-        Vector result = new Vector(memory.clone());
+        Vector result = new Vector(memory.length);
+        result.memory = memory.clone();
         for (int i = 0; i < result.memory.length; i++)
             result.memory[i] += rhs.memory[i];
         return result;
@@ -47,7 +51,8 @@ public class Vector {
     public Vector sub(Vector rhs) {
         if (rhs.memory.length != memory.length)
             throw new IllegalArgumentException("Dimensions for vector addition do not match");
-        Vector result = new Vector(memory.clone());
+        Vector result = new Vector(memory.length);
+        result.memory = memory.clone();
         for (int i = 0; i < result.memory.length; i++)
             result.memory[i] -= rhs.memory[i];
         return result;
@@ -73,7 +78,8 @@ public class Vector {
     public Vector pointwiseMultiply(Vector rhs) {
         if (rhs.memory.length != memory.length)
             throw new IllegalArgumentException("Dimensions for pointwise vector multiplication do not match");
-        Vector result = new Vector(memory.clone());
+        Vector result = new Vector(memory.length);
+        result.memory = memory.clone();
         for (int i = 0; i < memory.length; i++)
             result.memory[i] *= rhs.memory[i];
         return result;
@@ -107,9 +113,9 @@ public class Vector {
         stringBuilder.append("(");
         for (int i = 0; i < memory.length; i++) {
             if (i < memory.length - 1) {
-                stringBuilder.append(memory[i] + ", ");
+                stringBuilder.append(String.format("%f.4", memory[i])).append(", ");
             } else {
-                stringBuilder.append(memory[i] + ")");
+                stringBuilder.append(String.format("%f.4", memory[i])).append(")");
             }
         }
         return stringBuilder.toString();

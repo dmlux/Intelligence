@@ -2,51 +2,38 @@ package de.intelligence;
 
 import de.intelligence.data.FullDataSet;
 import de.intelligence.data.Label;
+import de.intelligence.math.Randomizer;
 import de.intelligence.math.Vector;
 import de.intelligence.regression.LinearRegression;
 import de.intelligence.regression.RegressionModel;
 
-import java.util.Random;
-
 public class Main {
 
     public static void main(String[] args) {
+        // generate random data to train
+        FullDataSet<Double> dataSet = generateData();
+
+        // generate a model for linear regression
+        RegressionModel<Double> model = new LinearRegression().generateModel(dataSet, 9e-4, 15000);
+
+        // use the model to predict a value
+        System.out.println(model.predict(Vector.of(12)));
+    }
+
+    private static FullDataSet<Double> generateData() {
+        // start algorithm by first create a data set
         FullDataSet<Double> dataSet = new FullDataSet<>(1);
-
-        // fill data with noise
-        for (int i = 0; i < 1000; i++) {
-            int x = getRandomIntInRange(0, 50);
-            Label<Double> y = new Label<>(f(x) + getRandomDoubleInRange(-5, 5));
-            Vector featureVector = new Vector(1);
-            featureVector.set(0, x);
-            dataSet.addExample(featureVector, y);
+        // fill data set with examples that have some noise on it
+        for (int i = 0; i < 10000; i++) {
+            // generate random x
+            int x = Randomizer.getRandomIntInRange(0, 50);
+            // generate noisy y for the given x and use it as an example in the dataset
+            dataSet.addExample(Vector.of(x), new Label<>(f(x) + Randomizer.getRandomDoubleInRange(-5, 5)));
         }
-
-        LinearRegression regression = new LinearRegression();
-        RegressionModel<Double> model = regression.generateModel(dataSet);
-
-        Vector testVector = new Vector(1);
-        testVector.set(0, 12);
-        System.out.println(model.predict(testVector));
+        return dataSet;
     }
 
     private static double f(int x) {
-        return 2.7 * x + 9.45;
-    }
-
-    private static int getRandomIntInRange(int min, int max) {
-        if (min >= max) {
-            throw new IllegalArgumentException("max must be greater than min");
-        }
-        Random r = new Random();
-        return r.nextInt((max - min) + 1) + min;
-    }
-
-    private static double getRandomDoubleInRange(int min, int max) {
-        if (min >= max) {
-            throw new IllegalArgumentException("max must be greater than min");
-        }
-        Random r = new Random();
-        return min + (max - min) * r.nextDouble();
+        return 5.42353 * x + -2.34223;
     }
 }

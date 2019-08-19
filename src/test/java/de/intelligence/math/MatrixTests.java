@@ -153,7 +153,7 @@ class MatrixTests {
         assertThrows(IllegalArgumentException.class, () -> matrix.multiply(new Vector(2)));
         assertThrows(IllegalArgumentException.class, () -> matrix.multiply(new Vector(4)));
 
-        Vector result = matrix.multiply(new Vector(3, 6, 9));
+        Vector result = matrix.multiply(Vector.of(3, 6, 9));
 
         assertEquals(matrix.get(0, 0), 1);
         assertEquals(matrix.get(0, 1), 2);

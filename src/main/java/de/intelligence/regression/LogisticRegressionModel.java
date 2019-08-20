@@ -14,6 +14,10 @@ public class LogisticRegressionModel implements RegressionModel<Double> {
 
     @Override
     public Double predict(Vector x) {
-        return 1.0 / (1.0 + Math.exp(-(w.multiply(x) + b)));
+        return this.predict(x, .5);
+    }
+
+    public Double predict(Vector x, double threshold) {
+        return 1.0 / (1.0 + Math.exp(-(w.multiply(x) + b))) > threshold ? 1.0 : 0.0;
     }
 }

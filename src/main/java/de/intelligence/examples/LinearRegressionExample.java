@@ -1,4 +1,4 @@
-package de.intelligence;
+package de.intelligence.examples;
 
 import de.intelligence.data.FullDataSet;
 import de.intelligence.data.Label;
@@ -7,14 +7,14 @@ import de.intelligence.math.Vector;
 import de.intelligence.regression.LinearRegression;
 import de.intelligence.regression.RegressionModel;
 
-public class Main {
+public class LinearRegressionExample {
 
     public static void main(String[] args) {
         // generate random data to train
         FullDataSet<Double> dataSet = generateData();
 
         // generate a model for linear regression
-        RegressionModel<Double> model = new LinearRegression().generateModel(dataSet, 9e-4, 15000);
+        RegressionModel<Double> model = new LinearRegression().generateModel(dataSet, 9e-4, 30000);
 
         // use the model to predict a value
         System.out.println(model.predict(Vector.of(12)));
@@ -28,12 +28,12 @@ public class Main {
             // generate random x
             int x = Randomizer.getRandomIntInRange(0, 50);
             // generate noisy y for the given x and use it as an example in the dataset
-            dataSet.addExample(Vector.of(x), new Label<>(f(x) + Randomizer.getRandomDoubleInRange(-5, 5)));
+            dataSet.addExample(Vector.of(x), new Label<>(f(x) + Randomizer.getRandomDoubleInRange(-15, 15)));
         }
         return dataSet;
     }
 
     private static double f(int x) {
-        return 5.42353 * x -2.34223;
+        return 5.42353 * x - 2.34223;
     }
 }

@@ -113,9 +113,9 @@ public class Vector {
         stringBuilder.append("(");
         for (int i = 0; i < memory.length; i++) {
             if (i < memory.length - 1) {
-                stringBuilder.append(String.format("%f.4", memory[i])).append(", ");
+                stringBuilder.append(String.format("%.4f", memory[i])).append(", ");
             } else {
-                stringBuilder.append(String.format("%f.4", memory[i])).append(")");
+                stringBuilder.append(String.format("%.4f", memory[i])).append(")");
             }
         }
         return stringBuilder.toString();

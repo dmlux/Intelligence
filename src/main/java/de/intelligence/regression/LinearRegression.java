@@ -36,7 +36,7 @@ public class LinearRegression implements Regression<Double> {
             w.subInPlace(dl_dw.scaleInPlace(1.0 / N * alpha));
             b -= (1.0 / N) * alpha * dl_db;
 
-            System.out.println("updated parameters with w=" + w + " and b=" + String.format("%f.4", b));
+            System.out.println("updated parameters with w=" + w + " and b=" + String.format("%.4f", b));
 //            if (e % 400 == 0)
 //                System.out.println("epoch: " + e + ", loss: " + avgLoss(dataSet));
         }
